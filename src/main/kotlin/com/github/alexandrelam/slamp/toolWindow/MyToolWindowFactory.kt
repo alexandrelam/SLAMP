@@ -1,5 +1,6 @@
 package com.github.alexandrelam.slamp.toolWindow
 
+import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
@@ -8,8 +9,11 @@ import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.content.ContentFactory
 import com.github.alexandrelam.slamp.services.FileCollectorListener
 import com.github.alexandrelam.slamp.services.FileCollectorService
+import com.github.alexandrelam.slamp.models.FileListItem
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.DoubleClickListener
 import java.awt.BorderLayout
+import java.awt.event.MouseEvent
 import javax.swing.DefaultListModel
 import javax.swing.JPanel
 
@@ -17,27 +21,42 @@ class FileCollectorToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val fileCollectorToolWindow = FileCollectorToolWindow(project)
         val content = ContentFactory.getInstance().createContent(
-                fileCollectorToolWindow.getContent(),
-                "",
-                false
+            fileCollectorToolWindow.getContent(),
+            "",
+            false
         )
         toolWindow.contentManager.addContent(content)
     }
 }
 
-class FileCollectorToolWindow(project: Project) {
-    private val listModel = DefaultListModel<String>()
+class FileCollectorToolWindow(private val project: Project) {
+    private val listModel = DefaultListModel<FileListItem>()
     private val fileList = JBList(listModel)
     private val service = project.getService(FileCollectorService::class.java)
 
     init {
+        setupFileList()
+        subscribeToFileChanges()
+    }
+
+    private fun setupFileList() {
+        // Add double-click listener
+        object : DoubleClickListener() {
+            override fun onDoubleClick(event: MouseEvent): Boolean {
+                openSelectedFile()
+                return true
+            }
+        }.installOn(fileList)
+    }
+
+    private fun subscribeToFileChanges() {
         project.messageBus.connect().subscribe(
-                FileCollectorListener.TOPIC,
-                object : FileCollectorListener {
-                    override fun onFileListChanged(files: List<VirtualFile>) {
-                        updateFileList(files)
-                    }
+            FileCollectorListener.TOPIC,
+            object : FileCollectorListener {
+                override fun onFileListChanged(files: List<VirtualFile>) {
+                    updateFileList(files)
                 }
+            }
         )
     }
 
@@ -51,7 +70,7 @@ class FileCollectorToolWindow(project: Project) {
     private fun updateFileList(files: List<VirtualFile>) {
         listModel.clear()
         files.forEach { file ->
-            listModel.addElement(getShortenedPath(file))
+            listModel.addElement(FileListItem(file, getShortenedPath(file)))
         }
     }
 
@@ -67,5 +86,10 @@ class FileCollectorToolWindow(project: Project) {
                 "$grandParent/$parent/$fileName"
             }
         }
+    }
+
+    private fun openSelectedFile() {
+        val selectedItem = fileList.selectedValue ?: return
+        FileEditorManager.getInstance(project).openFile(selectedItem.file, true)
     }
 }
