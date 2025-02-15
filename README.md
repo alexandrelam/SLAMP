@@ -107,7 +107,67 @@ formatted for LLM prompts
 </tr>
 </table>
 
-[Rest of the README remains the same until the end, then add:]
+## ⚙️ Installation
+
+<details>
+<summary>From JetBrains Marketplace</summary>
+1. Open IntelliJ IDEA
+2. Navigate to: `Settings/Preferences` > `Plugins` > `Marketplace`
+3. Search for "SLAMP"
+4. Click `Install`
+</details>
+<details>
+<summary>Manual Installation</summary>
+1. Download the [latest release](https://github.com/alexandrelam/SLAMP/releases/latest)
+2. In IntelliJ IDEA:
+   - Go to `Settings/Preferences` > `Plugins`
+   - Click ⚙️ > `Install plugin from disk...`
+   - Select the downloaded file
+</details>
+
+## 🛠️ Development
+
+```bash
+# Clone the repository
+git clone https://github.com/alexandrelam/SLAMP.git
+# Build the plugin
+./gradlew build
+# Run with IDE for testing
+./gradlew runIde
+```
+
+## 📝 Output Format
+
+```
+[CODE]
+// src/main/kotlin/com/example/MyClass.kt
+class MyClass {
+    // ... code content
+}
+[TEST]
+// src/test/kotlin/com/example/MyClassTest.kt
+class MyClassTest {
+    // ... test content
+}
+[INSTRUCTION]
+```
+
+<div align="center">
+
+## 💖 Support & Contributions
+
+<p>
+  <a href="https://github.com/alexandrelam/SLAMP/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/alexandrelam/SLAMP/issues">Request Feature</a>
+  ·
+  <a href="https://github.com/alexandrelam/SLAMP/pulls">Submit PR</a>
+</p>
+<p>
+  <strong>Star this repo if you found it useful! ⭐</strong>
+</p>
+
+---
 
 <div align="center">
   <p>Made with 💜 for developers who love talking to AI</p>
