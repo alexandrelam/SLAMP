@@ -11,7 +11,6 @@ import java.awt.datatransfer.StringSelection
 
 @Service(Service.Level.PROJECT)
 class ClipboardService(private val project: Project) {
-
     fun updateClipboardContent(files: List<VirtualFile>) {
         if (files.isEmpty()) {
             clearClipboard()
@@ -20,16 +19,26 @@ class ClipboardService(private val project: Project) {
 
         try {
             val contentBuilder = StringBuilder()
+
+            // Add CODE section
+            contentBuilder.append("[CODE]\n")
             files.forEach { file ->
-                contentBuilder.append("// ${file.name}\n")
+                // Get relative path by removing project base path
+                val relativePath = project.basePath?.let { basePath ->
+                    file.path.removePrefix(basePath).removePrefix("/")
+                } ?: file.path
+
+                contentBuilder.append("// ${relativePath}\n")
                 val content = FileUtil.loadTextAndClose(file.inputStream)
                 contentBuilder.append(content)
                 contentBuilder.append("\n\n")
             }
 
+            // Add INSTRUCTION section
+            contentBuilder.append("[INSTRUCTION]\n")
+
             val stringSelection = StringSelection(contentBuilder.toString())
             CopyPasteManager.getInstance().setContents(stringSelection)
-
             notifySuccess(files.size)
         } catch (e: Exception) {
             notifyError()
