@@ -1,4 +1,3 @@
-// FileCollectorToolWindowFactory.kt
 package com.github.alexandrelam.slamp.toolWindow
 
 import com.intellij.openapi.project.Project
@@ -18,9 +17,9 @@ class FileCollectorToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val fileCollectorToolWindow = FileCollectorToolWindow(project)
         val content = ContentFactory.getInstance().createContent(
-            fileCollectorToolWindow.getContent(),
-            "",
-            false
+                fileCollectorToolWindow.getContent(),
+                "",
+                false
         )
         toolWindow.contentManager.addContent(content)
     }
@@ -33,12 +32,12 @@ class FileCollectorToolWindow(project: Project) {
 
     init {
         project.messageBus.connect().subscribe(
-            FileCollectorListener.TOPIC,
-            object : FileCollectorListener {
-                override fun onFileListChanged(files: List<VirtualFile>) {
-                    updateFileList(files)
+                FileCollectorListener.TOPIC,
+                object : FileCollectorListener {
+                    override fun onFileListChanged(files: List<VirtualFile>) {
+                        updateFileList(files)
+                    }
                 }
-            }
         )
     }
 
@@ -52,7 +51,21 @@ class FileCollectorToolWindow(project: Project) {
     private fun updateFileList(files: List<VirtualFile>) {
         listModel.clear()
         files.forEach { file ->
-            listModel.addElement(file.path)
+            listModel.addElement(getShortenedPath(file))
+        }
+    }
+
+    private fun getShortenedPath(file: VirtualFile): String {
+        val parts = file.path.split("/").filter { it.isNotEmpty() }
+        return when {
+            parts.size <= 1 -> file.name
+            parts.size == 2 -> "${parts[0]}/${parts[1]}"
+            else -> {
+                val fileName = parts.last()
+                val parent = parts[parts.size - 2]
+                val grandParent = parts[parts.size - 3]
+                "$grandParent/$parent/$fileName"
+            }
         }
     }
 }
