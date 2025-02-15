@@ -9,10 +9,44 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.alexandrelam.slamp.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <!-- Changed the toolWindow id and factory class to match our file collector functionality -->
+        <toolWindow
+                factoryClass="com.github.alexandrelam.slamp.toolWindow.FileCollectorToolWindowFactory"
+                id="File Collector"
+                anchor="right"
+                icon="AllIcons.General.Add"/>
     </extensions>
 
+    <!-- Add actions for our features -->
+    <actions>
+        <!-- Action to add current file to the collector -->
+        <action
+                id="FileCollector.AddCurrentFile"
+                class="com.github.alexandrelam.slamp.actions.AddCurrentFileAction"
+                text="Add to File Collector"
+                description="Add current file to File Collector">
+            <!-- Add this action to the editor toolbar -->
+            <add-to-group group-id="EditorToolbar" anchor="last"/>
+        </action>
+
+        <!-- Action to clear the file list -->
+        <action
+                id="FileCollector.ClearList"
+                class="com.github.alexandrelam.slamp.actions.ClearListAction"
+                text="Clear File List"
+                description="Clear all files from collector"/>
+
+        <!-- Action to copy files to clipboard -->
+        <action
+                id="FileCollector.CopyToClipboard"
+                class="com.github.alexandrelam.slamp.actions.CopyToClipboardAction"
+                text="Copy Files to Clipboard"
+                description="Copy all file contents to clipboard"/>
+    </actions>
+
     <applicationListeners>
-        <listener class="com.github.alexandrelam.slamp.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener
+                class="com.github.alexandrelam.slamp.listeners.MyApplicationActivationListener"
+                topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
 </idea-plugin>
