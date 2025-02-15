@@ -1,3 +1,4 @@
+// FileCollectorToolWindowFactory.kt
 package com.github.alexandrelam.slamp.toolWindow
 
 import com.intellij.openapi.project.Project
@@ -25,28 +26,26 @@ class FileCollectorToolWindowFactory : ToolWindowFactory {
     }
 }
 
-class FileCollectorToolWindow(private val project: Project) {
+class FileCollectorToolWindow(project: Project) {
     private val listModel = DefaultListModel<String>()
     private val fileList = JBList(listModel)
     private val service = project.getService(FileCollectorService::class.java)
 
     init {
-        project.messageBus.connect().subscribe(FileCollectorService.TOPIC, object : FileCollectorListener {
-            override fun onFileListChanged(files: List<VirtualFile>) {
-                updateFileList(files)
+        project.messageBus.connect().subscribe(
+            FileCollectorListener.TOPIC,
+            object : FileCollectorListener {
+                override fun onFileListChanged(files: List<VirtualFile>) {
+                    updateFileList(files)
+                }
             }
-        })
+        )
     }
 
     fun getContent(): JPanel {
         val panel = JPanel(BorderLayout())
-
-        // Add the file list with scroll
         panel.add(JBScrollPane(fileList), BorderLayout.CENTER)
-
-        // Initialize with current files
         updateFileList(service.getFiles())
-
         return panel
     }
 
