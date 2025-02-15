@@ -67,13 +67,18 @@ class FileCollectorToolWindow(private val project: Project) {
 
         // Create toolbar with clear button
         val actionGroup = DefaultActionGroup().apply {
-            add(ClearListAction(project))
+            add(ClearListAction(project).apply {
+                templatePresentation.setText("Clear Files")
+                templatePresentation.setDescription("Clear all files from the list")
+            })
         }
         val toolbar = ActionManager.getInstance().createActionToolbar(
             "FileCollectorToolbar",
             actionGroup,
-            false
-        )
+            true
+        ).apply {
+            setTargetComponent(panel)
+        }
 
         // Add components to panel
         panel.add(toolbar.component, BorderLayout.NORTH)
@@ -82,6 +87,7 @@ class FileCollectorToolWindow(private val project: Project) {
         updateFileList(service.getFiles())
         return panel
     }
+
 
     private fun updateFileList(files: List<VirtualFile>) {
         listModel.clear()
