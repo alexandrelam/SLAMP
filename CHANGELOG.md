@@ -10,4 +10,7 @@
 - Clear all files button with visual feedback
 - Automatic clipboard updates with formatted content
 - Smart separation of code and test files
+
+## [Unreleased]
+### Added
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
