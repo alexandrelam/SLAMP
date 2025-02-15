@@ -12,6 +12,9 @@
         <projectService
                 serviceInterface="com.github.alexandrelam.slamp.services.FileCollectorService"
                 serviceImplementation="com.github.alexandrelam.slamp.services.FileCollectorServiceImpl"/>
+        <notificationGroup id="SLAMP Notifications"
+                           displayType="BALLOON"
+                           toolWindowId="File Collector"/>
     </extensions>
 
     <actions>
