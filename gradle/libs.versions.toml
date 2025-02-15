@@ -1,6 +1,8 @@
 [versions]
 # libraries
 junit = "4.13.2"
+mockito = "5.10.0"
+mockito-kotlin = "5.2.1"
 
 # plugins
 changelog = "2.2.1"
@@ -11,6 +13,8 @@ qodana = "2024.2.3"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
 
 [plugins]
 changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }
