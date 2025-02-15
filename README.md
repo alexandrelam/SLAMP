@@ -17,12 +17,10 @@
   </p>
 
   <br/>
-
-  <p align="center">
-    <img src="screenshot-or-demo-gif-here" width="700" alt="SLAMP Demo"/>
-  </p>
 </div>
 
+![demo](https://github.com/user-attachments/assets/286c6369-4412-4b2b-a328-4f1351efca89)
+   
 ## 💡 What's SLAMP?
 
 ⚡️ SLAMP is your new IntelliJ IDEA plugin that makes sharing code with AI models 🤖 a breeze! Just "SLAMP It" 🚀
