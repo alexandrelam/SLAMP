@@ -21,15 +21,17 @@ class ClipboardService(private val project: Project) {
             val contentBuilder = StringBuilder()
             val (codeFiles, testFiles) = separateFiles(files)
 
-            // Add CODE section
-            contentBuilder.append("[CODE]\n")
-            appendFiles(contentBuilder, codeFiles)
+            if (codeFiles.isNotEmpty()) {
+                contentBuilder.append("[CODE]\n")
+                appendFiles(contentBuilder, codeFiles)
+            }
 
-            // Add TEST section
-            contentBuilder.append("[TEST]\n")
-            appendFiles(contentBuilder, testFiles)
+            if (testFiles.isNotEmpty()) {
+                contentBuilder.append("[TEST]\n")
+                appendFiles(contentBuilder, testFiles)
+            }
 
-            // Add INSTRUCTION section
+            // Always add INSTRUCTION section at the end
             contentBuilder.append("[INSTRUCTION]\n")
 
             val stringSelection = StringSelection(contentBuilder.toString())
@@ -55,16 +57,10 @@ class ClipboardService(private val project: Project) {
     }
 
     private fun appendFiles(builder: StringBuilder, files: List<VirtualFile>) {
-        if (files.isEmpty()) {
-            builder.append("// No files in this section\n\n")
-            return
-        }
-
         files.forEach { file ->
             val relativePath = project.basePath?.let { basePath ->
                 file.path.removePrefix(basePath).removePrefix("/")
             } ?: file.path
-
             builder.append("// ${relativePath}\n")
             val content = FileUtil.loadTextAndClose(file.inputStream)
             builder.append(content)

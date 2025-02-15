@@ -2,6 +2,15 @@
 
 # SLAMP Changelog
 
+## [1.1.0] - 2025-02-15
+### Changed
+- Improved clipboard formatting to hide empty CODE/TEST sections
+- Cleaner output by removing "No files in this section" placeholder
+
+### Fixed
+- Empty sections no longer appear in clipboard content
+- More relevant content organization in clipboard
+
 ## [1.0.0] - 2025-02-15
 ### Added
 - Quick toggle button in the main toolbar for adding/removing files

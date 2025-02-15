@@ -7,7 +7,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.alexandrelam.slamp.toolWindow.FileCollectorToolWindowFactory"
-                    id="File Collector"
+                    id="Files to SLAMP"
                     anchor="right"/>
         <projectService
                 serviceInterface="com.github.alexandrelam.slamp.services.FileCollectorService"
@@ -21,7 +21,7 @@
     <actions>
         <action id="FileCollector.ToggleFile"
                 class="com.github.alexandrelam.slamp.actions.ToggleFileAction"
-                text="Toggle File Collection"
+                text="Add or Remove files to SLAMP"
                 description="Add or remove current file from collector"
                 icon="AllIcons.General.Add">
             <add-to-group group-id="MainToolbarRight" anchor="after" relative-to-action="RunConfiguration"/>
