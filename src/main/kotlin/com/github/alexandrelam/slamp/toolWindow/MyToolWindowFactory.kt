@@ -10,6 +10,9 @@ import com.intellij.ui.content.ContentFactory
 import com.github.alexandrelam.slamp.services.FileCollectorListener
 import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.github.alexandrelam.slamp.models.FileListItem
+import com.github.alexandrelam.slamp.actions.ClearListAction
+import com.intellij.openapi.actionSystem.ActionManager
+import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.DoubleClickListener
 import java.awt.BorderLayout
@@ -40,7 +43,6 @@ class FileCollectorToolWindow(private val project: Project) {
     }
 
     private fun setupFileList() {
-        // Add double-click listener
         object : DoubleClickListener() {
             override fun onDoubleClick(event: MouseEvent): Boolean {
                 openSelectedFile()
@@ -62,7 +64,21 @@ class FileCollectorToolWindow(private val project: Project) {
 
     fun getContent(): JPanel {
         val panel = JPanel(BorderLayout())
+
+        // Create toolbar with clear button
+        val actionGroup = DefaultActionGroup().apply {
+            add(ClearListAction(project))
+        }
+        val toolbar = ActionManager.getInstance().createActionToolbar(
+            "FileCollectorToolbar",
+            actionGroup,
+            false
+        )
+
+        // Add components to panel
+        panel.add(toolbar.component, BorderLayout.NORTH)
         panel.add(JBScrollPane(fileList), BorderLayout.CENTER)
+
         updateFileList(service.getFiles())
         return panel
     }
