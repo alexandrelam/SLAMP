@@ -33,15 +33,15 @@ SLAMP is your intelligent companion for crafting perfect LLM prompts. It helps y
   <table>
     <tr>
       <td align="center">
-        <img width="64" src="https://raw.githubusercontent.com/githubnext/twemoji/main/assets/72x72/1f4cb.png" alt="Collection"><br/>
+        <img width="256" src="https://github.com/user-attachments/assets/b53bbec0-bc8e-401d-84fe-220f7172c5b2" alt="Collection"><br/>
         <strong>Smart Collection</strong>
       </td>
       <td align="center">
-        <img width="64" src="https://raw.githubusercontent.com/githubnext/twemoji/main/assets/72x72/2699.png" alt="Organization"><br/>
+        <img width="256" src="https://github.com/user-attachments/assets/b5fedd9b-d436-4c3c-bbae-7080073d8cbf" alt="Organization"><br/>
         <strong>Auto Organization</strong>
       </td>
       <td align="center">
-        <img width="64" src="https://raw.githubusercontent.com/githubnext/twemoji/main/assets/72x72/1f4cb.png" alt="Clipboard"><br/>
+        <img width="256" src="https://github.com/user-attachments/assets/be1c9359-40d3-404a-920b-af39b9d723cf" alt="Clipboard"><br/>
         <strong>Clipboard Magic</strong>
       </td>
     </tr>
