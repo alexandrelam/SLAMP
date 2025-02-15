@@ -1,51 +1,68 @@
-# SLAMP
+# SLAMP - Smart List And Model Prompter
 
 ![Build](https://github.com/alexandrelam/SLAMP/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Adjust the [pluginGroup](./gradle.properties) and [pluginName](./gradle.properties), as well as the [id](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
-- [ ] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the `MARKETPLACE_ID` in the above README badges. You can obtain it once the plugin is published to JetBrains Marketplace.
-- [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+SLAMP is an IntelliJ IDEA plugin that streamlines the process of collecting and formatting code for LLM prompts. It helps developers easily gather multiple files and their contents in a structured format, perfect for asking questions about code to AI assistants.
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+## 🚀 Features
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+### File Collection
+- Quick toggle button in the main toolbar to add/remove files
+- Visual feedback with Add/Remove icons
+- Automatic path shortening for better readability
+- Support for multiple files
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
+### Smart Organization
+- Automatic separation of code and test files
+- Maintains full relative paths for context
+- Clear section separation with [CODE] and [TEST] tags
+- Dedicated [INSTRUCTION] section for prompts
 
-## Installation
+### Clipboard Management
+- Automatic clipboard updates when files change
+- Structured format perfect for LLM prompts
+- Clear notifications for all clipboard actions
+- One-click list clearing
 
-- Using the IDE built-in plugin system:
-  
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "SLAMP"</kbd> >
-  <kbd>Install</kbd>
-  
-- Using JetBrains Marketplace:
+## 🎯 Usage
 
-  Go to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) and install it by clicking the <kbd>Install to ...</kbd> button in case your IDE is running.
+1. **Adding Files**
+  - Click the toggle button in the main toolbar while viewing a file
+  - The icon will change to indicate if the file is in your collection
 
-  You can also download the [latest release](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID/versions) from JetBrains Marketplace and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+2. **Viewing Collection**
+  - Open the "File Collector" tool window
+  - See all collected files with their paths
+  - Double-click any file to open it
 
-- Manually:
+3. **Managing Files**
+  - Clear all files using the "Clear Files" button
+  - Files are automatically formatted when copied
+  - Clipboard updates automatically with changes
 
-  Download the [latest release](https://github.com/alexandrelam/SLAMP/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+## ⚙️ Installation
 
+### From JetBrains Marketplace
+1. Open IntelliJ IDEA
+2. Go to `Settings/Preferences` > `Plugins` > `Marketplace`
+3. Search for "SLAMP"
+4. Click `Install`
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
+### Manual Installation
+1. Download the [latest release](https://github.com/alexandrelam/SLAMP/releases/latest)
+2. In IntelliJ IDEA, go to `Settings/Preferences` > `Plugins` > `⚙️` > `Install plugin from disk...`
+3. Select the downloaded file
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
-[docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
+## 🛠️ Development
+
+### Prerequisites
+- Java 17+
+- IntelliJ IDEA
+- Kotlin development environment
+
+### Building
+```bash
+./gradlew build
