@@ -1,68 +1,176 @@
-# sLAMp - Smart List And Model Prompter
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/c8a23542-35c4-42b5-9d6f-c56eae9eb843" alt="SLAMP Logo" width="180"/>
 
-![Build](https://github.com/alexandrelam/SLAMP/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  <h1>sLAMp</h1>
+  <h3>Smart List And Model Prompter</h3>
 
-SLAMP is an IntelliJ IDEA plugin that streamlines the process of collecting and formatting code for LLM prompts. It helps developers easily gather multiple files and their contents in a structured format, perfect for asking questions about code to AI assistants.
+  <p align="center">
+    <strong>Streamline your LLM prompting workflow in IntelliJ IDEA</strong>
+  </p>
+
+  <p align="center">
+    <a href="https://github.com/alexandrelam/SLAMP/actions"><img src="https://github.com/alexandrelam/SLAMP/workflows/Build/badge.svg" alt="Build Status"></a>
+    <a href="https://plugins.jetbrains.com/plugin/MARKETPLACE_ID"><img src="https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg" alt="Version"></a>
+    <a href="https://plugins.jetbrains.com/plugin/MARKETPLACE_ID"><img src="https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg" alt="Downloads"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  </p>
+
+  <br/>
+
+  <p align="center">
+    <img src="screenshot-or-demo-gif-here" width="700" alt="SLAMP Demo"/>
+  </p>
+</div>
+
+## ✨ Overview
+
+SLAMP is your intelligent companion for crafting perfect LLM prompts. It helps you collect, organize, and format your code snippets with ease, making interactions with AI assistants more productive than ever.
 
 ## 🚀 Features
 
-### File Collection
-- Quick toggle button in the main toolbar to add/remove files
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img width="64" src="https://raw.githubusercontent.com/githubnext/twemoji/main/assets/72x72/1f4cb.png" alt="Collection"><br/>
+        <strong>Smart Collection</strong>
+      </td>
+      <td align="center">
+        <img width="64" src="https://raw.githubusercontent.com/githubnext/twemoji/main/assets/72x72/2699.png" alt="Organization"><br/>
+        <strong>Auto Organization</strong>
+      </td>
+      <td align="center">
+        <img width="64" src="https://raw.githubusercontent.com/githubnext/twemoji/main/assets/72x72/1f4cb.png" alt="Clipboard"><br/>
+        <strong>Clipboard Magic</strong>
+      </td>
+    </tr>
+  </table>
+</div>
+
+### 📋 File Collection
+- Quick toggle button in the main toolbar
 - Visual feedback with Add/Remove icons
-- Automatic path shortening for better readability
-- Support for multiple files
+- Automatic path shortening
+- Multi-file support
 
-### Smart Organization
-- Automatic separation of code and test files
-- Maintains full relative paths for context
-- Clear section separation with [CODE] and [TEST] tags
-- Dedicated [INSTRUCTION] section for prompts
+### 🎯 Smart Organization
+- Auto-separation of code and test files
+- Full relative paths preserved
+- Clear [CODE] and [TEST] sections
+- Ready-to-use [INSTRUCTION] prompt section
 
-### Clipboard Management
-- Automatic clipboard updates when files change
-- Structured format perfect for LLM prompts
-- Clear notifications for all clipboard actions
-- One-click list clearing
+### ⚡ Clipboard Management
+- Real-time clipboard updates
+- LLM-optimized formatting
+- Clear action notifications
+- One-click clearing
 
-## 🎯 Usage
+## 🎮 Quick Start
 
-1. **Adding Files**
-  - Click the toggle button in the main toolbar while viewing a file
-  - The icon will change to indicate if the file is in your collection
+<table>
+<tr>
+<td>
 
-2. **Viewing Collection**
-  - Open the "File Collector" tool window
-  - See all collected files with their paths
-  - Double-click any file to open it
+### 1. Add Files
+```
+Click the toolbar toggle button
+while viewing any file
+```
 
-3. **Managing Files**
-  - Clear all files using the "Clear Files" button
-  - Files are automatically formatted when copied
-  - Clipboard updates automatically with changes
+</td>
+<td>
+
+### 2. View Collection
+```
+Open File Collector window to
+see your gathered files
+```
+
+</td>
+<td>
+
+### 3. Use Content
+```
+Content auto-copied and
+formatted for LLM prompts
+```
+
+</td>
+</tr>
+</table>
 
 ## ⚙️ Installation
 
-### From JetBrains Marketplace
+<details>
+<summary>From JetBrains Marketplace</summary>
+
 1. Open IntelliJ IDEA
-2. Go to `Settings/Preferences` > `Plugins` > `Marketplace`
+2. Navigate to: `Settings/Preferences` > `Plugins` > `Marketplace`
 3. Search for "SLAMP"
 4. Click `Install`
 
-### Manual Installation
+</details>
+
+<details>
+<summary>Manual Installation</summary>
+
 1. Download the [latest release](https://github.com/alexandrelam/SLAMP/releases/latest)
-2. In IntelliJ IDEA, go to `Settings/Preferences` > `Plugins` > `⚙️` > `Install plugin from disk...`
-3. Select the downloaded file
+2. In IntelliJ IDEA:
+   - Go to `Settings/Preferences` > `Plugins`
+   - Click ⚙️ > `Install plugin from disk...`
+   - Select the downloaded file
+
+</details>
 
 ## 🛠️ Development
 
-### Prerequisites
-- Java 17+
-- IntelliJ IDEA
-- Kotlin development environment
-
-### Building
 ```bash
+# Clone the repository
+git clone https://github.com/alexandrelam/SLAMP.git
+
+# Build the plugin
 ./gradlew build
+
+# Run with IDE for testing
+./gradlew runIde
+```
+
+## 📝 Output Format
+
+```
+[CODE]
+// src/main/kotlin/com/example/MyClass.kt
+class MyClass {
+    // ... code content
+}
+
+[TEST]
+// src/test/kotlin/com/example/MyClassTest.kt
+class MyClassTest {
+    // ... test content
+}
+
+[INSTRUCTION]
+```
+
+<div align="center">
+
+## 💖 Support & Contributions
+
+<p>
+  <a href="https://github.com/alexandrelam/SLAMP/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/alexandrelam/SLAMP/issues">Request Feature</a>
+  ·
+  <a href="https://github.com/alexandrelam/SLAMP/pulls">Submit PR</a>
+</p>
+
+<p>
+  <strong>Star this repo if you found it useful! ⭐</strong>
+</p>
+
+---
+
+<sub>Built with ❤️ by <a href="https://github.com/alexandrelam">Alexandre Lam</a></sub>
+
+</div>
