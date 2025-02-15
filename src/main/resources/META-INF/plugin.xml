@@ -5,8 +5,6 @@
 
     <depends>com.intellij.modules.platform</depends>
 
-    <icon src="/META-INF/pluginIcon.png"/>
-
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.alexandrelam.slamp.toolWindow.FileCollectorToolWindowFactory"
                     id="File Collector"
