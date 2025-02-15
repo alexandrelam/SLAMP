@@ -1,3 +1,4 @@
+<!-- Plugin description -->
 <div align="center">
   <img src="https://github.com/user-attachments/assets/c8a23542-35c4-42b5-9d6f-c56eae9eb843" alt="SLAMP Logo" width="180"/>
 
@@ -174,3 +175,4 @@ class MyClassTest {
 <sub>Built with ❤️ by <a href="https://github.com/alexandrelam">Alexandre Lam</a></sub>
 
 </div>
+<!-- Plugin description end -->
