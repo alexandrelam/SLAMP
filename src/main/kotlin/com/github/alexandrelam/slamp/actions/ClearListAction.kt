@@ -1,12 +1,11 @@
 package com.github.alexandrelam.slamp.actions
 
+import com.github.alexandrelam.slamp.services.ClipboardService
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 import com.github.alexandrelam.slamp.services.FileCollectorService
-import com.intellij.notification.NotificationGroupManager
-import com.intellij.notification.NotificationType
 
 class ClearListAction(private val project: Project) : AnAction(
     "Clear Files",  // Text that will show next to the icon
@@ -22,13 +21,9 @@ class ClearListAction(private val project: Project) : AnAction(
         val service = project.getService(FileCollectorService::class.java)
         service.clearFiles()
 
-        NotificationGroupManager.getInstance()
-            .getNotificationGroup("SLAMP Notifications")
-            .createNotification(
-                "File list cleared",
-                NotificationType.INFORMATION
-            )
-            .notify(project)
+        // Update clipboard using the service
+        project.getService(ClipboardService::class.java)
+            .updateClipboardContent(emptyList())
     }
 
     override fun update(e: AnActionEvent) {
