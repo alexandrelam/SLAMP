@@ -1,4 +1,3 @@
-// FileCollectorService.kt
 package com.github.alexandrelam.slamp.services
 
 import com.intellij.openapi.vfs.VirtualFile

@@ -1,4 +1,3 @@
-// FileCollectorServiceImpl.kt
 package com.github.alexandrelam.slamp.services
 
 import com.intellij.openapi.project.Project
