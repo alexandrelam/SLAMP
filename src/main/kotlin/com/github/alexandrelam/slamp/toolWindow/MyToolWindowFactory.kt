@@ -1,45 +1,59 @@
 package com.github.alexandrelam.slamp.toolWindow
 
-import com.intellij.openapi.components.service
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
-import com.intellij.ui.components.JBLabel
-import com.intellij.ui.components.JBPanel
+import com.intellij.ui.components.JBList
+import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.content.ContentFactory
-import com.github.alexandrelam.slamp.MyBundle
-import com.github.alexandrelam.slamp.services.MyProjectService
-import javax.swing.JButton
+import com.github.alexandrelam.slamp.services.FileCollectorListener
+import com.github.alexandrelam.slamp.services.FileCollectorService
+import com.intellij.openapi.vfs.VirtualFile
+import java.awt.BorderLayout
+import javax.swing.DefaultListModel
+import javax.swing.JPanel
 
-
-class MyToolWindowFactory : ToolWindowFactory {
-
-    init {
-        thisLogger().warn("Don't forget to remove all non-needed sample code files with their corresponding registration entries in `plugin.xml`.")
-    }
-
+class FileCollectorToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        val myToolWindow = MyToolWindow(toolWindow)
-        val content = ContentFactory.getInstance().createContent(myToolWindow.getContent(), null, false)
+        val fileCollectorToolWindow = FileCollectorToolWindow(project)
+        val content = ContentFactory.getInstance().createContent(
+            fileCollectorToolWindow.getContent(),
+            "",
+            false
+        )
         toolWindow.contentManager.addContent(content)
     }
+}
 
-    override fun shouldBeAvailable(project: Project) = true
+class FileCollectorToolWindow(private val project: Project) {
+    private val listModel = DefaultListModel<String>()
+    private val fileList = JBList(listModel)
+    private val service = project.getService(FileCollectorService::class.java)
 
-    class MyToolWindow(toolWindow: ToolWindow) {
+    init {
+        project.messageBus.connect().subscribe(FileCollectorService.TOPIC, object : FileCollectorListener {
+            override fun onFileListChanged(files: List<VirtualFile>) {
+                updateFileList(files)
+            }
+        })
+    }
 
-        private val service = toolWindow.project.service<MyProjectService>()
+    fun getContent(): JPanel {
+        val panel = JPanel(BorderLayout())
 
-        fun getContent() = JBPanel<JBPanel<*>>().apply {
-            val label = JBLabel(MyBundle.message("randomLabel", "?"))
+        // Add the file list with scroll
+        panel.add(JBScrollPane(fileList), BorderLayout.CENTER)
 
-            add(label)
-            add(JButton(MyBundle.message("shuffle")).apply {
-                addActionListener {
-                    label.text = MyBundle.message("randomLabel", service.getRandomNumber())
-                }
-            })
+        // Initialize with current files
+        updateFileList(service.getFiles())
+
+        return panel
+    }
+
+    private fun updateFileList(files: List<VirtualFile>) {
+        listModel.clear()
+        files.forEach { file ->
+            listModel.addElement(file.path)
         }
     }
 }

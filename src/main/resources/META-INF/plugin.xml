@@ -15,6 +15,8 @@
                 id="File Collector"
                 anchor="right"
                 icon="AllIcons.General.Add"/>
+
+        <projectService serviceImplementation="com.github.alexandrelam.slamp.services.FileCollectorService"/>
     </extensions>
 
     <!-- Add actions for our features -->
