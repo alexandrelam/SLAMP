@@ -1,6 +1,12 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
-
 # SLAMP Changelog
+
+## [1.2.1] - 2025-02-16
+### Added
+- MIT License
+
+### Changed
+- Updated plugin logo
 
 ## [1.2.0] - 2025-02-16
 ### Added

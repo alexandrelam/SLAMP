@@ -1,6 +1,6 @@
 <!-- Plugin description -->
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/c8a23542-35c4-42b5-9d6f-c56eae9eb843" alt="SLAMP Logo" width="180"/>
+  <img src="https://github.com/user-attachments/assets/db4aca5f-2481-497e-90f5-a3cc68d10637" alt="SLAMP Logo" width="180"/>
 
   <h1>🚀 SLAMP It!</h1>
   <h3>Smart List And Model Prompter</h3>
