@@ -1,12 +1,19 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
+
 # SLAMP Changelog
 
 ## [1.2.1] - 2025-02-16
 ### Added
 - MIT License
-
 ### Changed
 - Updated plugin logo
+- Updated dependencies:
+    - JetBrains/qodana-action to 2024.3
+    - gradle/actions to 4
+    - codecov/codecov-action to 5
+    - org.jetbrains.intellij.platform to 2.2.1
+    - org.jetbrains.qodana to 2024.3.4
+    - org.gradle.toolchains.foojay-resolver-convention to 0.9.0
 
 ## [1.2.0] - 2025-02-16
 ### Added
@@ -14,13 +21,11 @@
 - Delete buttons for individual files in the list
 - Ktlint integration for code formatting and style enforcement
 - Additional unit tests for actions
-
 ### Changed
 - Switched from Mockito to MockK for Kotlin-friendly testing
 - Improved code organization and structure
 - Enhanced UI responsiveness and user interaction
 - Updated file list display with better visual feedback
-
 ### Removed
 - Unused MyBundle class and associated resource files
 - Redundant code and unnecessary files
@@ -30,7 +35,6 @@
 ### Changed
 - Improved clipboard formatting to hide empty CODE/TEST sections
 - Cleaner output by removing "No files in this section" placeholder
-
 ### Fixed
 - Empty sections no longer appear in clipboard content
 - More relevant content organization in clipboard
