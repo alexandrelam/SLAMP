@@ -1,16 +1,16 @@
 package com.github.alexandrelam.slamp.actions
 
+import com.github.alexandrelam.slamp.services.ClipboardService
+import com.github.alexandrelam.slamp.services.FileCollectorService
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.Presentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.github.alexandrelam.slamp.services.ClipboardService
-import com.github.alexandrelam.slamp.services.FileCollectorService
-import com.intellij.icons.AllIcons
 import io.mockk.*
-import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import org.junit.Before
 import org.junit.Test
 

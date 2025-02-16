@@ -42,25 +42,22 @@ class ClipboardService(private val project: Project) {
         }
     }
 
-    private fun separateFiles(files: List<VirtualFile>): Pair<List<VirtualFile>, List<VirtualFile>> {
-        return files.partition { file ->
-            !isTestFile(file)
-        }
+    private fun separateFiles(files: List<VirtualFile>): Pair<List<VirtualFile>, List<VirtualFile>> = files.partition { file ->
+        !isTestFile(file)
     }
 
-    private fun isTestFile(file: VirtualFile): Boolean {
-        return file.path.contains("/test/") ||
-                file.nameWithoutExtension.endsWith("Test") ||
-                file.nameWithoutExtension.endsWith("Tests") ||
-                file.nameWithoutExtension.endsWith("Spec") ||
-                file.nameWithoutExtension.startsWith("Test")
-    }
+    private fun isTestFile(file: VirtualFile): Boolean = file.path.contains("/test/") ||
+        file.nameWithoutExtension.endsWith("Test") ||
+        file.nameWithoutExtension.endsWith("Tests") ||
+        file.nameWithoutExtension.endsWith("Spec") ||
+        file.nameWithoutExtension.startsWith("Test")
 
     private fun appendFiles(builder: StringBuilder, files: List<VirtualFile>) {
         files.forEach { file ->
-            val relativePath = project.basePath?.let { basePath ->
-                file.path.removePrefix(basePath).removePrefix("/")
-            } ?: file.path
+            val relativePath =
+                project.basePath?.let { basePath ->
+                    file.path.removePrefix(basePath).removePrefix("/")
+                } ?: file.path
             builder.append("// ${relativePath}\n")
             val content = FileUtil.loadTextAndClose(file.inputStream)
             builder.append(content)
@@ -78,7 +75,7 @@ class ClipboardService(private val project: Project) {
             .getNotificationGroup("SLAMP Notifications")
             .createNotification(
                 "$fileCount files copied to clipboard",
-                NotificationType.INFORMATION
+                NotificationType.INFORMATION,
             )
             .notify(project)
     }
@@ -88,7 +85,7 @@ class ClipboardService(private val project: Project) {
             .getNotificationGroup("SLAMP Notifications")
             .createNotification(
                 "Failed to copy files to clipboard",
-                NotificationType.ERROR
+                NotificationType.ERROR,
             )
             .notify(project)
     }
@@ -98,7 +95,7 @@ class ClipboardService(private val project: Project) {
             .getNotificationGroup("SLAMP Notifications")
             .createNotification(
                 "Clipboard cleared",
-                NotificationType.INFORMATION
+                NotificationType.INFORMATION,
             )
             .notify(project)
     }

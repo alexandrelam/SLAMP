@@ -8,12 +8,12 @@ import com.intellij.ui.content.ContentFactory
 class FileCollectorToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val fileCollectorToolWindow = FileCollectorToolWindow(project)
-        val content = ContentFactory.getInstance().createContent(
-            fileCollectorToolWindow.getContent(),
-            "",
-            false
-        )
+        val content =
+            ContentFactory.getInstance().createContent(
+                fileCollectorToolWindow.getContent(),
+                "",
+                false,
+            )
         toolWindow.contentManager.addContent(content)
     }
 }
-

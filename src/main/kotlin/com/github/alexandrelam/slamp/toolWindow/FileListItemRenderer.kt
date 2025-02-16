@@ -2,18 +2,18 @@ package com.github.alexandrelam.slamp.toolWindow
 
 import com.github.alexandrelam.slamp.models.FileListItem
 import com.intellij.icons.AllIcons
-import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBLabel
 import java.awt.BorderLayout
 import java.awt.Component
 import java.awt.Dimension
 import javax.swing.*
 
-class FileListItemRenderer(private val project: Project) : ListCellRenderer<FileListItem> {
+class FileListItemRenderer : ListCellRenderer<FileListItem> {
     companion object {
         const val BUTTON_WIDTH = 24
         const val BUTTON_HEIGHT = 24
         const val BUTTON_PADDING = 8
+
         // Total width including padding
         const val TOTAL_BUTTON_WIDTH = BUTTON_WIDTH + (BUTTON_PADDING * 2)
     }
@@ -23,7 +23,7 @@ class FileListItemRenderer(private val project: Project) : ListCellRenderer<File
         value: FileListItem,
         index: Int,
         isSelected: Boolean,
-        cellHasFocus: Boolean
+        cellHasFocus: Boolean,
     ): Component {
         val panel = JPanel(BorderLayout())
         panel.border = BorderFactory.createEmptyBorder(4, 8, 4, 8)

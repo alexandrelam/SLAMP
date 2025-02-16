@@ -1,17 +1,16 @@
 package com.github.alexandrelam.slamp.actions
 
+import com.github.alexandrelam.slamp.services.ClipboardService
+import com.github.alexandrelam.slamp.services.FileCollectorService
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.github.alexandrelam.slamp.services.ClipboardService
-import com.github.alexandrelam.slamp.services.FileCollectorService
-import com.intellij.icons.AllIcons
 import org.jetbrains.annotations.NotNull
 
 class ToggleFileAction : AnAction() {
-
     override fun actionPerformed(@NotNull e: AnActionEvent) {
         val project: Project = e.project ?: return
         val file: VirtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
@@ -30,7 +29,6 @@ class ToggleFileAction : AnAction() {
             .updateClipboardContent(service.getFiles())
     }
 
-
     override fun update(@NotNull e: AnActionEvent) {
         val project = e.project
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE)
@@ -41,9 +39,12 @@ class ToggleFileAction : AnAction() {
             val service = project.getService(FileCollectorService::class.java)
             val isFileInCollection = service.getFiles().contains(file)
 
-            e.presentation.icon = if (isFileInCollection)
-                AllIcons.General.Remove else AllIcons.General.Add
+            e.presentation.icon =
+                if (isFileInCollection) {
+                    AllIcons.General.Remove
+                } else {
+                    AllIcons.General.Add
+                }
         }
     }
-
 }

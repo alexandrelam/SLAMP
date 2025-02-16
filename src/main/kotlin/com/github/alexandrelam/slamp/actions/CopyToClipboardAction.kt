@@ -7,11 +7,12 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 
-class CopyToClipboardAction(private val project: Project) : AnAction(
-    "Copy to Clipboard",  // Text that will show next to the icon
-    "Copy files content to clipboard",  // Tooltip
-    AllIcons.Actions.Copy  // Icon
-) {
+class CopyToClipboardAction(private val project: Project) :
+    AnAction(
+        "Copy to Clipboard", // Text that will show next to the icon
+        "Copy files content to clipboard", // Tooltip
+        AllIcons.Actions.Copy, // Icon
+    ) {
     init {
         templatePresentation.setText("Copy to Clipboard")
     }

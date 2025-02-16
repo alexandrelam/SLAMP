@@ -7,11 +7,12 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 
-class ClearListAction(private val project: Project) : AnAction(
-    "Clear Files",  // Text that will show next to the icon
-    "Clear all files from the list",  // Tooltip
-    AllIcons.Actions.GC  // Icon
-) {
+class ClearListAction(private val project: Project) :
+    AnAction(
+        "Clear Files", // Text that will show next to the icon
+        "Clear all files from the list", // Tooltip
+        AllIcons.Actions.GC, // Icon
+    ) {
     init {
         // Ensure text is always shown with the icon
         templatePresentation.setText("Clear Files")
