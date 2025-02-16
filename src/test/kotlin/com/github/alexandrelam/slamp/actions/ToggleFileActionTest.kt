@@ -8,114 +8,146 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.github.alexandrelam.slamp.services.ClipboardService
 import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.intellij.icons.AllIcons
+import io.mockk.*
+import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.InjectMockKs
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.*  // Use mockito-kotlin instead
 
 class ToggleFileActionTest {
+    @MockK
+    private lateinit var event: AnActionEvent
 
- private lateinit var event: AnActionEvent
- private lateinit var project: Project
- private lateinit var virtualFile: VirtualFile
- private lateinit var fileCollectorService: FileCollectorService
- private lateinit var clipboardService: ClipboardService
- private lateinit var presentation: Presentation
- private lateinit var action: ToggleFileAction
+    @MockK
+    private lateinit var project: Project
 
- @Before
- fun setUp() {
-  // Create mocks using mockito-kotlin
-  event = mock()
-  project = mock()
-  virtualFile = mock()
-  fileCollectorService = mock()
-  clipboardService = mock()
-  presentation = mock()
-  action = ToggleFileAction()
+    @MockK
+    private lateinit var virtualFile: VirtualFile
 
-  // Setup common mocks
-  whenever(event.project).thenReturn(project)
-  whenever(event.getData(CommonDataKeys.VIRTUAL_FILE)).thenReturn(virtualFile)
-  whenever(event.presentation).thenReturn(presentation)
-  whenever(project.getService(FileCollectorService::class.java)).thenReturn(fileCollectorService)
-  whenever(project.getService(ClipboardService::class.java)).thenReturn(clipboardService)
- }
+    @MockK
+    private lateinit var fileCollectorService: FileCollectorService
 
- @Test
- fun `test update - should disable when project is null`() {
-  whenever(event.project).thenReturn(null)
+    @MockK
+    private lateinit var clipboardService: ClipboardService
 
-  action.update(event)
+    @MockK
+    private lateinit var presentation: Presentation
 
-  verify(presentation).isEnabledAndVisible = false
- }
+    @InjectMockKs
+    private lateinit var action: ToggleFileAction
 
- @Test
- fun `test update - should disable when file is null`() {
-  whenever(event.getData(CommonDataKeys.VIRTUAL_FILE)).thenReturn(null)
+    @Before
+    fun setUp() {
+        MockKAnnotations.init(this)
 
-  action.update(event)
+        every { event.project } returns project
+        every { event.getData(CommonDataKeys.VIRTUAL_FILE) } returns virtualFile
+        every { event.presentation } returns presentation
+        every { project.getService(FileCollectorService::class.java) } returns fileCollectorService
+        every { project.getService(ClipboardService::class.java) } returns clipboardService
+        every { presentation.icon = any() } just runs
+        every { presentation.isEnabledAndVisible = any() } just runs
+    }
 
-  verify(presentation).isEnabledAndVisible = false
- }
+    @Test
+    fun shouldDisableUpdateWhenProjectIsNull() {
+        every { event.project } returns null
 
- @Test
- fun `test update - should enable and show add icon when file not in collection`() {
-  whenever(fileCollectorService.getFiles()).thenReturn(emptyList())
+        action.update(event)
 
-  action.update(event)
+        verify { presentation.isEnabledAndVisible = false }
+    }
 
-  verify(presentation).isEnabledAndVisible = true
-  verify(presentation).icon = AllIcons.General.Add
- }
+    @Test
+    fun shouldDisableUpdateWhenFileIsNull() {
+        every { event.getData(CommonDataKeys.VIRTUAL_FILE) } returns null
 
- @Test
- fun `test update - should enable and show remove icon when file in collection`() {
-  whenever(fileCollectorService.getFiles()).thenReturn(listOf(virtualFile))
+        action.update(event)
 
-  action.update(event)
+        verify { presentation.isEnabledAndVisible = false }
+    }
 
-  verify(presentation).isEnabledAndVisible = true
-  verify(presentation).icon = AllIcons.General.Remove
- }
+    @Test
+    fun shouldEnableAndShowAddIconWhenFileNotInCollection() {
+        every { fileCollectorService.getFiles() } returns emptyList()
 
- @Test
- fun `test actionPerformed - should add file when not in collection`() {
-  whenever(fileCollectorService.getFiles()).thenReturn(emptyList())
+        action.update(event)
 
-  action.actionPerformed(event)
+        verifySequence {
+            presentation.isEnabledAndVisible = true
+            presentation.icon = AllIcons.General.Add
+        }
+    }
 
-  verify(fileCollectorService).addFile(virtualFile)
-  verify(presentation).icon = AllIcons.General.Remove
-  verify(clipboardService).updateClipboardContent(any())
- }
+    @Test
+    fun shouldEnableAndShowRemoveIconWhenFileInCollection() {
+        every { fileCollectorService.getFiles() } returns listOf(virtualFile)
 
- @Test
- fun `test actionPerformed - should remove file when in collection`() {
-  whenever(fileCollectorService.getFiles()).thenReturn(listOf(virtualFile))
+        action.update(event)
 
-  action.actionPerformed(event)
+        verifySequence {
+            presentation.isEnabledAndVisible = true
+            presentation.icon = AllIcons.General.Remove
+        }
+    }
 
-  verify(fileCollectorService).removeFile(virtualFile)
-  verify(presentation).icon = AllIcons.General.Add
-  verify(clipboardService).updateClipboardContent(any())
- }
+    @Test
+    fun shouldAddFileWhenNotInCollection() {
+        every { fileCollectorService.getFiles() } returns emptyList()
+        every { fileCollectorService.addFile(any()) } just runs
+        every { clipboardService.updateClipboardContent(any()) } just runs
 
- @Test
- fun `test actionPerformed - should do nothing when project is null`() {
-  whenever(event.project).thenReturn(null)
+        action.actionPerformed(event)
 
-  action.actionPerformed(event)
+        verifySequence {
+            fileCollectorService.getFiles() // First call to check if file is in collection
+            fileCollectorService.addFile(virtualFile)
+            presentation.icon = AllIcons.General.Remove
+            fileCollectorService.getFiles() // Second call to get updated list for clipboard
+            clipboardService.updateClipboardContent(any())
+        }
+    }
 
-  verifyNoInteractions(fileCollectorService, clipboardService)
- }
+    @Test
+    fun shouldRemoveFileWhenInCollection() {
+        every { fileCollectorService.getFiles() } returns listOf(virtualFile)
+        every { fileCollectorService.removeFile(any()) } just runs
+        every { clipboardService.updateClipboardContent(any()) } just runs
 
- @Test
- fun `test actionPerformed - should do nothing when file is null`() {
-  whenever(event.getData(CommonDataKeys.VIRTUAL_FILE)).thenReturn(null)
+        action.actionPerformed(event)
 
-  action.actionPerformed(event)
+        verifySequence {
+            fileCollectorService.getFiles() // First call to check if file is in collection
+            fileCollectorService.removeFile(virtualFile)
+            presentation.icon = AllIcons.General.Add
+            fileCollectorService.getFiles() // Second call to get updated list for clipboard
+            clipboardService.updateClipboardContent(any())
+        }
+    }
 
-  verifyNoInteractions(fileCollectorService, clipboardService)
- }
+    @Test
+    fun shouldDoNothingWhenProjectIsNull() {
+        every { event.project } returns null
+
+        action.actionPerformed(event)
+
+        verify(exactly = 0) {
+            fileCollectorService.addFile(any())
+            fileCollectorService.removeFile(any())
+            clipboardService.updateClipboardContent(any())
+        }
+    }
+
+    @Test
+    fun shouldDoNothingWhenFileIsNull() {
+        every { event.getData(CommonDataKeys.VIRTUAL_FILE) } returns null
+
+        action.actionPerformed(event)
+
+        verify(exactly = 0) {
+            fileCollectorService.addFile(any())
+            fileCollectorService.removeFile(any())
+            clipboardService.updateClipboardContent(any())
+        }
+    }
 }
