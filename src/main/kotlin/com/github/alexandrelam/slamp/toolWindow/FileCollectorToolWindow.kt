@@ -7,6 +7,7 @@ import com.intellij.ui.components.JBScrollPane
 import com.github.alexandrelam.slamp.listeners.FileCollectorListener
 import com.github.alexandrelam.slamp.models.FileListItem
 import com.github.alexandrelam.slamp.actions.ClearListAction
+import com.github.alexandrelam.slamp.actions.CopyToClipboardAction
 import com.github.alexandrelam.slamp.services.ClipboardService
 import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.intellij.openapi.actionSystem.ActionManager
@@ -86,13 +87,21 @@ class FileCollectorToolWindow(private val project: Project) {
     fun getContent(): JPanel {
         val panel = JPanel(BorderLayout())
 
-        // Create toolbar with clear button
+        // Create toolbar with copy and clear buttons
         val actionGroup = DefaultActionGroup().apply {
+            // Add copy button first (left)
+            add(CopyToClipboardAction(project).apply {
+                templatePresentation.setText("Copy to Clipboard")
+                templatePresentation.setDescription("Copy files content to clipboard")
+            })
+
+            // Add clear button second (right)
             add(ClearListAction(project).apply {
                 templatePresentation.setText("Clear Files")
                 templatePresentation.setDescription("Clear all files from the list")
             })
         }
+
         val toolbar = ActionManager.getInstance().createActionToolbar(
             "FileCollectorToolbar",
             actionGroup,
@@ -104,7 +113,6 @@ class FileCollectorToolWindow(private val project: Project) {
         // Add components to panel
         panel.add(toolbar.component, BorderLayout.NORTH)
         panel.add(JBScrollPane(fileList), BorderLayout.CENTER)
-
         updateFileList(service.getFiles())
         return panel
     }
