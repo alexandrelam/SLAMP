@@ -49,26 +49,6 @@ ktlint {
     )
 }
 
-tasks.register("installGitHook") {
-    doLast {
-        val preCommitHook = File(rootDir, ".git/hooks/pre-commit")
-        preCommitHook.writeText(
-            """
-            #!/bin/sh
-            echo "Running ktlint format check..."
-            ./gradlew ktlintFormat
-            
-            # Add changes made by ktlint
-            git add -A
-            
-            # Return 0 to allow the commit to proceed
-            exit 0
-            """.trimIndent(),
-        )
-        preCommitHook.setExecutable(true)
-    }
-}
-
 // Configure project's dependencies
 repositories {
     mavenCentral()
