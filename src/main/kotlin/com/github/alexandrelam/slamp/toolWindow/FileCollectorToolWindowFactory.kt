@@ -8,9 +8,9 @@ import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.content.ContentFactory
 import com.github.alexandrelam.slamp.services.FileCollectorListener
-import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.github.alexandrelam.slamp.models.FileListItem
 import com.github.alexandrelam.slamp.actions.ClearListAction
+import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.vfs.VirtualFile

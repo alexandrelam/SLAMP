@@ -1,11 +1,11 @@
 package com.github.alexandrelam.slamp.actions
 
 import com.github.alexandrelam.slamp.services.ClipboardService
+import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
-import com.github.alexandrelam.slamp.services.FileCollectorService
 
 class ClearListAction(private val project: Project) : AnAction(
     "Clear Files",  // Text that will show next to the icon

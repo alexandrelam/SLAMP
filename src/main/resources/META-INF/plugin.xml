@@ -11,7 +11,7 @@
                     anchor="right"/>
         <projectService
                 serviceInterface="com.github.alexandrelam.slamp.services.FileCollectorService"
-                serviceImplementation="com.github.alexandrelam.slamp.services.FileCollectorServiceImpl"/>
+                serviceImplementation="com.github.alexandrelam.slamp.services.FileCollectorService"/>
         <projectService serviceImplementation="com.github.alexandrelam.slamp.services.ClipboardService"/>
         <notificationGroup id="SLAMP Notifications"
                            displayType="BALLOON"

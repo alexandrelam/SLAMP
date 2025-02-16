@@ -5,8 +5,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.github.alexandrelam.slamp.services.ClipboardService
+import com.github.alexandrelam.slamp.services.FileCollectorService
 import com.intellij.icons.AllIcons
 import org.jetbrains.annotations.NotNull
 
