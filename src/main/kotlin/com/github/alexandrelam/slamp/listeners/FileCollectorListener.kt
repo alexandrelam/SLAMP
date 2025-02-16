@@ -1,4 +1,4 @@
-package com.github.alexandrelam.slamp.services
+package com.github.alexandrelam.slamp.listeners
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.messages.Topic

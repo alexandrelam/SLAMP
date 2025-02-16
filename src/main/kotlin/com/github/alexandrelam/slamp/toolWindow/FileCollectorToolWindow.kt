@@ -4,7 +4,7 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
-import com.github.alexandrelam.slamp.services.FileCollectorListener
+import com.github.alexandrelam.slamp.listeners.FileCollectorListener
 import com.github.alexandrelam.slamp.models.FileListItem
 import com.github.alexandrelam.slamp.actions.ClearListAction
 import com.github.alexandrelam.slamp.services.ClipboardService

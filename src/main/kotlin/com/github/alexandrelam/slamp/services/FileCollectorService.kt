@@ -1,5 +1,6 @@
 package com.github.alexandrelam.slamp.services
 
+import com.github.alexandrelam.slamp.listeners.FileCollectorListener
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 
