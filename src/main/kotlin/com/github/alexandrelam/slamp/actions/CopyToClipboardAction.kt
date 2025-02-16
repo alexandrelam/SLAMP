@@ -7,32 +7,33 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 
-class ClearListAction(private val project: Project) :
+class CopyToClipboardAction(private val project: Project) :
     AnAction(
-        "Clear Files", // Text that will show next to the icon
-        "Clear all files from the list", // Tooltip
-        AllIcons.Actions.GC, // Icon
+        "Copy to Clipboard", // Text that will show next to the icon
+        "Copy files content to clipboard", // Tooltip
+        AllIcons.Actions.Copy, // Icon
     ) {
     init {
-        // Ensure text is always shown with the icon
-        templatePresentation.setText("Clear Files")
+        templatePresentation.setText("Copy to Clipboard")
     }
 
     override fun actionPerformed(e: AnActionEvent) {
-        // Early return if project is null
         if (e.project == null) return
 
         val service = project.getService(FileCollectorService::class.java)
-        service.clearFiles()
-        // Update clipboard using the service
         project.getService(ClipboardService::class.java)
-            .updateClipboardContent(emptyList())
+            .updateClipboardContent(service.getFiles())
     }
 
     override fun update(e: AnActionEvent) {
+        if (e.project == null) {
+            e.presentation.isEnabled = false
+            e.presentation.setText("Copy to Clipboard")
+            return
+        }
+
         val service = project.getService(FileCollectorService::class.java)
         e.presentation.isEnabled = service.getFiles().isNotEmpty()
-        // Ensure text stays visible even when disabled
-        e.presentation.setText("Clear Files")
+        e.presentation.setText("Copy to Clipboard")
     }
 }

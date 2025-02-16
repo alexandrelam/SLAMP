@@ -1,8 +1,7 @@
 [versions]
 # libraries
 junit = "4.13.2"
-mockito = "5.10.0"
-mockito-kotlin = "5.2.1"
+mockk = "1.13.16"
 
 # plugins
 changelog = "2.2.1"
@@ -10,11 +9,11 @@ intelliJPlatform = "2.1.0"
 kotlin = "1.9.25"
 kover = "0.8.3"
 qodana = "2024.2.3"
+ktlint = "12.1.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [plugins]
 changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }
@@ -22,3 +21,4 @@ intelliJPlatform = { id = "org.jetbrains.intellij.platform", version.ref = "inte
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 qodana = { id = "org.jetbrains.qodana", version.ref = "qodana" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
