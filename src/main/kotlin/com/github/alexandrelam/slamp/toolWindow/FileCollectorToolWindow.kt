@@ -2,11 +2,8 @@ package com.github.alexandrelam.slamp.toolWindow
 
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.wm.ToolWindow
-import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
-import com.intellij.ui.content.ContentFactory
 import com.github.alexandrelam.slamp.services.FileCollectorListener
 import com.github.alexandrelam.slamp.models.FileListItem
 import com.github.alexandrelam.slamp.actions.ClearListAction
@@ -21,18 +18,6 @@ import java.awt.Rectangle
 import java.awt.event.MouseEvent
 import javax.swing.DefaultListModel
 import javax.swing.JPanel
-
-class FileCollectorToolWindowFactory : ToolWindowFactory {
-    override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        val fileCollectorToolWindow = FileCollectorToolWindow(project)
-        val content = ContentFactory.getInstance().createContent(
-            fileCollectorToolWindow.getContent(),
-            "",
-            false
-        )
-        toolWindow.contentManager.addContent(content)
-    }
-}
 
 class FileCollectorToolWindow(private val project: Project) {
     private val listModel = DefaultListModel<FileListItem>()
