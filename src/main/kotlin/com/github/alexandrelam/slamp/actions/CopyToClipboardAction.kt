@@ -17,12 +17,20 @@ class CopyToClipboardAction(private val project: Project) : AnAction(
     }
 
     override fun actionPerformed(e: AnActionEvent) {
+        if (e.project == null) return
+
         val service = project.getService(FileCollectorService::class.java)
         project.getService(ClipboardService::class.java)
             .updateClipboardContent(service.getFiles())
     }
 
     override fun update(e: AnActionEvent) {
+        if (e.project == null) {
+            e.presentation.isEnabled = false
+            e.presentation.setText("Copy to Clipboard")
+            return
+        }
+
         val service = project.getService(FileCollectorService::class.java)
         e.presentation.isEnabled = service.getFiles().isNotEmpty()
         e.presentation.setText("Copy to Clipboard")

@@ -18,9 +18,11 @@ class ClearListAction(private val project: Project) : AnAction(
     }
 
     override fun actionPerformed(e: AnActionEvent) {
+        // Early return if project is null
+        if (e.project == null) return
+
         val service = project.getService(FileCollectorService::class.java)
         service.clearFiles()
-
         // Update clipboard using the service
         project.getService(ClipboardService::class.java)
             .updateClipboardContent(emptyList())
