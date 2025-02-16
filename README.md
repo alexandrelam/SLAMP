@@ -3,8 +3,7 @@
   <img src="https://github.com/user-attachments/assets/db4aca5f-2481-497e-90f5-a3cc68d10637" alt="SLAMP Logo" width="180"/>
 
   <h1>🚀 SLAMP It!</h1>
-  <h3>Smart List And Model Prompter</h3>
-
+  <h3>Smart 𝙻ist 𝙰nd 𝙼odel Prompter</h3>
   <p align="center">
     <em>Because life's too short to copy-paste files one by one into your AI chat! 🤖</em>
   </p>
